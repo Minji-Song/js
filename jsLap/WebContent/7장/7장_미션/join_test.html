@@ -24,18 +24,84 @@
 
 		$("form").submit(function() {
 			var tel1_pattern = /(^01[016789]$)/; //정규식
-
+			//아이디
+			var id_pattern = /^[a-zA-Z0-9]*$/;
 			if ($("#id").val() == "") {
-				alert("아이디를 꼭 입력하세요!");
+				alert("아이디를 꼭 입력하세요.");
 				$("#id").focus();
 				return false;
 			}
 			
+			//비밀번호
+			if ($("#pwd").val() == "") {
+				alert("비밀번호를 입력하세요.");
+				$("#pwd").focus();
+				return false;
+			}
+			if ($("#pwd").val() != $("#pwd2").val()) {
+				alert("비밀번호 확인이 일치하지 않습니다.");
+				$("#pwd2").val("").focus();
+				return false;
+			}
 			
+			//이름
+			if ($("#name").val() == "") {
+				alert("이름을 입력하세요.");
+				$("#name").focus();
+				return false;
+			}
 			
+			//전화번호
+			if (!tel1_pattern.test($("#tel1").val())) {
+				alert("전화번호 첫자리는 010, 011, 016, 017, 018, 019만 쓸 수 있습니다.");
+				$("#tel1").val("").focus();
+				return false;
+			}
+			if ($("#tel2").val().length != 4 && $("#tel3").val().length != 4) {
+				alert("전화번호에는 4자리수의 숫자만 입력 가능합니다.");
+				$("#tel2").focus();
+				return false;
+			}
 			
+			//주소
+			if ($("#addr").val() == "") {
+				alert("주소를 입력하세요.");
+				$("#addr").focus();
+				return false;
+			}
+
+			//직업
+			if ($("#job").val() == "") {
+				alert("직업을 선택하세요.");
+				return false;
+			}
 			
+			//성별
+			if(!$('input:radio[name="gender"]').is(':checked')){
+				alert("성별을 선택하세요.");
+				return false;
+			}
 			
+			//이메일
+			var email_pattern = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+			if (!email_pattern.test($("#email").val())) {
+				alert("올바른 이메일주소를 입력하세요.");
+				$("#email").focus();
+				return false;
+			}
+			
+			//자기소개
+			if ($("#intro").val() == "") {
+				alert("자기소개를 입력하세요.");
+				$("#intro").focus();
+				return false;
+			}
+			
+			//ok출력
+			else{
+				alert("ok");
+				return false;
+			}
 
 		}); // submit() end
 
@@ -72,9 +138,9 @@
 			<tr>
 				<th>전화번호</th>
 				<td><input type="text" name="tel1" id="tel1" size="3"
-					maxlength="3" />- <input type="text" name="tel2" id="tel2"
-					size="4" maxlength="4" />- <input type="text" name="tel3"
-					id="tel3" size="4" maxlength="4" /></td>
+					maxlength="3" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>- <input type="text" name="tel2" id="tel2"
+					size="4" maxlength="4" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>- <input type="text" name="tel3"
+					id="tel3" size="4" maxlength="4" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/></td>
 			</tr>
 			<tr>
 				<th>주소</th>
